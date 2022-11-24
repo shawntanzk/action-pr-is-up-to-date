@@ -206,7 +206,7 @@ function process_pr {
 	[[ -z "$COMMIT" ]] && die "PR #$PR has not been fetched"
 	for TAG in "${TAGS[@]}"; do
 		if ! git merge-base --is-ancestor "$TAG" "$COMMIT"; then
-			printf "\e[1;31mPR #%d is outdated\e[0m\n" "$PR"
+			die "\e[1;31mPR #%d is outdated\e[0m\n" "$PR"
 			update_github_status "$COMMIT" "$DATA_FAIL"
 			return
 		fi
