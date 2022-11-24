@@ -207,12 +207,12 @@ function process_pr {
 	for TAG in "${TAGS[@]}"; do
 		if ! git merge-base --is-ancestor "$TAG" "$COMMIT"; then
 			printf "\e[1;31mPR #%d is outdated\e[0m\n" "$PR"
-			update_github_status "$COMMIT" "$DATA_FAIL" && die
+			update_github_status "$COMMIT" "$DATA_FAIL" 
 		fi
 	done
 	printf "\e[1;32mPR #%d is up to date\e[0m\n" "$PR"
 	if $NOTIFY_SUCCESS; then
-		update_github_status "$COMMIT" "$DATA_OK"
+		update_github_status "$COMMIT" "$DATA_OK" && die
 	fi
 }
 
